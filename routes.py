@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import login_required, current_user
 from models import db, Contact
+from datetime import datetime
 
 main_bp = Blueprint('main', __name__)
 
@@ -38,3 +40,8 @@ def contact():
         return redirect(url_for('main.contact'))
     
     return render_template('contact.html')
+
+@main_bp.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html', name=current_user.username, now=datetime.now())
