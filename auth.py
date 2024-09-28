@@ -15,11 +15,12 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if not user or not user.check_password(password):
-            flash('Please check your login details and try again.')
+            flash('Please check your login details and try again.', 'error')
             return redirect(url_for('auth.login'))
 
         login_user(user, remember=remember)
         user.update_last_login()
+        flash('Logged in successfully.', 'success')
         return redirect(url_for('main.dashboard'))
 
     return render_template('login.html')
@@ -33,7 +34,7 @@ def register():
 
         user = User.query.filter_by(email=email).first()
         if user:
-            flash('Email address already exists')
+            flash('Email address already exists', 'error')
             return redirect(url_for('auth.register'))
 
         new_user = User(username=username, email=email)
@@ -43,7 +44,7 @@ def register():
         db.session.commit()
 
         login_user(new_user)
-        flash('Registration successful. Welcome to your dashboard!')
+        flash('Registration successful. Welcome to your dashboard!', 'success')
         return redirect(url_for('main.dashboard'))
 
     return render_template('register.html')
@@ -52,6 +53,7 @@ def register():
 @login_required
 def logout():
     logout_user()
+    flash('You have been logged out.', 'info')
     return redirect(url_for('main.index'))
 
 @auth_bp.route('/change_password', methods=['POST'])
@@ -62,14 +64,14 @@ def change_password():
     confirm_password = request.form.get('confirm_password')
 
     if not current_user.check_password(current_password):
-        flash('Current password is incorrect.')
+        flash('Current password is incorrect.', 'error')
         return redirect(url_for('main.dashboard'))
 
     if new_password != confirm_password:
-        flash('New passwords do not match.')
+        flash('New passwords do not match.', 'error')
         return redirect(url_for('main.dashboard'))
 
     current_user.set_password(new_password)
     db.session.commit()
-    flash('Password changed successfully.')
+    flash('Password changed successfully.', 'success')
     return redirect(url_for('main.dashboard'))
