@@ -83,3 +83,32 @@ def detect_deepfake_route():
         result = detect_deepfake(url)
     
     return jsonify(result)
+
+@main_bp.route('/demos')
+def demos():
+    return render_template('demos.html')
+
+@main_bp.route('/demo_kyc', methods=['POST'])
+def demo_kyc():
+    # Simulate KYC verification process
+    name = request.form.get('name')
+    id_number = request.form.get('id_number')
+    # In a real scenario, you would perform actual verification here
+    is_verified = len(name) > 3 and len(id_number) > 5
+    return jsonify({"verified": is_verified})
+
+@main_bp.route('/demo_media_verification', methods=['POST'])
+def demo_media_verification():
+    # Simulate media verification process
+    url = request.form.get('url')
+    # In a real scenario, you would perform actual verification here
+    is_authentic = len(url) > 10 and '.' in url
+    return jsonify({"authentic": is_authentic})
+
+@main_bp.route('/demo_threat_intelligence', methods=['POST'])
+def demo_threat_intelligence():
+    # Simulate threat intelligence process
+    ip_address = request.form.get('ip_address')
+    # In a real scenario, you would perform actual threat analysis here
+    threat_level = len(ip_address.split('.')) == 4
+    return jsonify({"threat_level": "High" if threat_level else "Low"})
