@@ -18,11 +18,12 @@ def register():
             return redirect(url_for('auth.register'))
 
         new_user = User(username=username, email=email)
-        new_user.set_password(password)
+        new_user.password_hash = generate_password_hash(password)
 
         db.session.add(new_user)
         db.session.commit()
 
+        flash('Registration successful. Please log in.')
         return redirect(url_for('auth.login'))
 
     return render_template('register.html')
