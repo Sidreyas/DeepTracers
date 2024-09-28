@@ -29,6 +29,44 @@
         </div>
     </div>
 </section>
+
+<section class="mt-16 bg-gray-100 py-12">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-semibold mb-8 text-center">What Our Customers Say About Us?</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-4">
+                    <img src="{{ url_for('static', filename='img/avatar1.jpg') }}" alt="Customer 1" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h3 class="font-semibold">O. Roberts</h3>
+                        <p class="text-gray-600">Business Owner</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">"Great product! It was what I needed for my company. It's really a great tool."</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-4">
+                    <img src="{{ url_for('static', filename='img/avatar2.jpg') }}" alt="Customer 2" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h3 class="font-semibold">E. Thompson</h3>
+                        <p class="text-gray-600">Content Creator</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">"I don't need it at the moment, but now that I know it works and how helpful it is, I will definitely use it!"</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-4">
+                    <img src="{{ url_for('static', filename='img/avatar3.jpg') }}" alt="Customer 3" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h3 class="font-semibold">E. Watsica</h3>
+                        <p class="text-gray-600">Student</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">"The quick and easy use of my key words to generate an essay. Standout feature. It adapts to various writing styles and tones, making it suitable for a wide range of projects. User-friendly interface, speed, and adaptability. Great! Keep going!"</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block footer_content %}

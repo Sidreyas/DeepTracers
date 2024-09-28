@@ -60,3 +60,10 @@
 .bg-green-600 {
     background-color: #059669;
 }
+
+/* Testimonial avatar styles */
+.testimonial-avatar {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+}
