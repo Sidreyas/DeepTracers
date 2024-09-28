@@ -3,6 +3,8 @@ from flask_login import login_required, current_user
 from models import db, Contact
 from datetime import datetime
 from ai_api import detect_deepfake, get_supported_platforms
+from werkzeug.utils import secure_filename
+import os
 
 main_bp = Blueprint('main', __name__)
 
@@ -65,9 +67,19 @@ def update_profile():
 
 @main_bp.route('/detect_deepfake', methods=['POST'])
 def detect_deepfake_route():
-    url = request.json.get('url')
-    if not url:
-        return jsonify({"error": "No URL provided"}), 400
+    url = request.form.get('url')
+    file = request.files.get('file')
     
-    result = detect_deepfake(url)
+    if not url and not file:
+        return jsonify({"error": "No URL or file provided"}), 400
+    
+    if file:
+        filename = secure_filename(file.filename)
+        file_path = os.path.join('uploads', filename)
+        file.save(file_path)
+        result = detect_deepfake(file_path)
+        os.remove(file_path)  # Remove the file after analysis
+    else:
+        result = detect_deepfake(url)
+    
     return jsonify(result)

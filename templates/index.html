@@ -34,10 +34,19 @@
     <h2 class="text-3xl font-semibold mb-6 text-center">Identifying Political Deepfakes in Social Media using AI</h2>
     <div class="max-w-3xl mx-auto">
         <h3 class="text-2xl font-semibold mb-4">Try our deepfake detector</h3>
-        <div class="flex items-center">
-            <input type="text" id="deepfake-url" placeholder="Add a URL to a social media post..." class="flex-grow p-3 rounded-l-lg border-2 border-r-0 border-gray-300 focus:outline-none focus:border-green-500">
-            <button id="detect-deepfake" class="bg-green-500 text-white px-6 py-3 rounded-r-lg hover:bg-green-600 transition duration-300">IS IT REAL?</button>
+        <div class="flex items-center space-x-2">
+            <div class="flex-grow flex items-center space-x-2">
+                <input type="text" id="deepfake-url" placeholder="Add a URL to a social media post..." class="flex-grow p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-green-500">
+                <label for="file-upload" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                    <i class="fas fa-upload mr-2"></i>Upload
+                </label>
+                <input id="file-upload" type="file" accept="image/*,video/*" class="hidden">
+            </div>
+            <button id="detect-deepfake" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-300">
+                <i class="fas fa-search mr-2"></i>Analyze
+            </button>
         </div>
+        <div id="file-name" class="mt-2 text-sm text-gray-600"></div>
         <div id="result" class="mt-4 text-center font-bold"></div>
         <div class="mt-8">
             <h4 class="text-xl font-semibold mb-4">SUPPORTED SOURCES</h4>
@@ -137,23 +146,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const detectButton = document.getElementById('detect-deepfake');
     const urlInput = document.getElementById('deepfake-url');
     const resultDiv = document.getElementById('result');
+    const fileUpload = document.getElementById('file-upload');
+    const fileName = document.getElementById('file-name');
+    let uploadedFile = null;
+
+    fileUpload.addEventListener('change', function(e) {
+        uploadedFile = e.target.files[0];
+        fileName.textContent = uploadedFile ? `Selected file: ${uploadedFile.name}` : '';
+    });
 
     detectButton.addEventListener('click', function() {
         const url = urlInput.value.trim();
-        if (!url) {
-            alert('Please enter a URL');
+        
+        if (!url && !uploadedFile) {
+            alert('Please enter a URL or upload a file');
             return;
         }
 
         resultDiv.textContent = 'Analyzing...';
         detectButton.disabled = true;
 
+        const formData = new FormData();
+        if (url) {
+            formData.append('url', url);
+        }
+        if (uploadedFile) {
+            formData.append('file', uploadedFile);
+        }
+
         fetch('/detect_deepfake', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ url: url }),
+            body: formData,
         })
         .then(response => response.json())
         .then(data => {
@@ -172,6 +195,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .finally(() => {
             detectButton.disabled = false;
+            uploadedFile = null;
+            fileUpload.value = '';
+            fileName.textContent = '';
         });
     });
 });
