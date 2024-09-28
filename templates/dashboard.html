@@ -3,7 +3,7 @@
 {% block title %}Deep Tracers - Dashboard{% endblock %}
 
 {% block content %}
-<h1 class="text-3xl font-bold mb-8">Welcome, {{ name }}!</h1>
+<h1 class="text-3xl font-bold mb-8">Welcome, {{ current_user.username }}!</h1>
 
 <div class="bg-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-semibold mb-4">Your Dashboard</h2>
@@ -11,19 +11,28 @@
     
     <div class="grid md:grid-cols-2 gap-4">
         <div class="bg-gray-100 p-4 rounded-lg">
-            <h3 class="text-xl font-semibold mb-2">Recent Activity</h3>
+            <h3 class="text-xl font-semibold mb-2">Account Information</h3>
             <ul class="list-disc list-inside">
-                <li>Logged in on {{ now.strftime('%Y-%m-%d %H:%M:%S') }}</li>
-                <li>Last scan performed: Not available</li>
+                <li>Username: {{ current_user.username }}</li>
+                <li>Email: {{ current_user.email }}</li>
+                <li>Member since: {{ current_user.created_at.strftime('%Y-%m-%d') }}</li>
             </ul>
         </div>
         <div class="bg-gray-100 p-4 rounded-lg">
-            <h3 class="text-xl font-semibold mb-2">Quick Actions</h3>
-            <ul class="space-y-2">
-                <li><a href="#" class="text-blue-600 hover:underline">Run New Scan</a></li>
-                <li><a href="#" class="text-blue-600 hover:underline">View Reports</a></li>
-                <li><a href="#" class="text-blue-600 hover:underline">Update Profile</a></li>
+            <h3 class="text-xl font-semibold mb-2">Recent Activity</h3>
+            <ul class="list-disc list-inside">
+                <li>Last login: {{ now.strftime('%Y-%m-%d %H:%M:%S') }}</li>
+                <li>Last scan performed: Not available</li>
             </ul>
+        </div>
+    </div>
+    
+    <div class="mt-8">
+        <h3 class="text-xl font-semibold mb-2">Quick Actions</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+            <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 text-center">Run New Scan</a>
+            <a href="#" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 text-center">View Reports</a>
+            <a href="#" class="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 text-center">Update Profile</a>
         </div>
     </div>
 </div>

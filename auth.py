@@ -41,8 +41,9 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        flash('Registration successful. Please log in.')
-        return redirect(url_for('auth.login'))
+        login_user(new_user)
+        flash('Registration successful. Welcome to your dashboard!')
+        return redirect(url_for('main.dashboard'))
 
     return render_template('register.html')
 
@@ -51,8 +52,3 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
-
-@auth_bp.route('/dashboard')
-@login_required
-def dashboard():
-    return render_template('dashboard.html', name=current_user.username)
