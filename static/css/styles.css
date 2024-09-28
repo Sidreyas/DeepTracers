@@ -39,3 +39,8 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* New button styles */
+.rounded-full {
+    border-radius: 9999px;
+}
