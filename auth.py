@@ -19,6 +19,7 @@ def login():
             return redirect(url_for('auth.login'))
 
         login_user(user, remember=remember)
+        user.update_last_login()
         return redirect(url_for('main.dashboard'))
 
     return render_template('login.html')
@@ -52,3 +53,23 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+@auth_bp.route('/change_password', methods=['POST'])
+@login_required
+def change_password():
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+
+    if not current_user.check_password(current_password):
+        flash('Current password is incorrect.')
+        return redirect(url_for('main.dashboard'))
+
+    if new_password != confirm_password:
+        flash('New passwords do not match.')
+        return redirect(url_for('main.dashboard'))
+
+    current_user.set_password(new_password)
+    db.session.commit()
+    flash('Password changed successfully.')
+    return redirect(url_for('main.dashboard'))

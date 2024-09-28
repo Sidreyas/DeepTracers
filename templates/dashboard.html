@@ -5,7 +5,7 @@
 {% block content %}
 <h1 class="text-3xl font-bold mb-8">Welcome, {{ current_user.username }}!</h1>
 
-<div class="bg-white p-6 rounded-lg shadow-md">
+<div class="bg-white p-6 rounded-lg shadow-md mb-8">
     <h2 class="text-2xl font-semibold mb-4">Your Dashboard</h2>
     <p class="mb-4">This is your personal dashboard. Here you can view and manage your account information, access your threat detection reports, and customize your settings.</p>
     
@@ -21,7 +21,7 @@
         <div class="bg-gray-100 p-4 rounded-lg">
             <h3 class="text-xl font-semibold mb-2">Recent Activity</h3>
             <ul class="list-disc list-inside">
-                <li>Last login: {{ now.strftime('%Y-%m-%d %H:%M:%S') }}</li>
+                <li>Last login: {{ current_user.last_login.strftime('%Y-%m-%d %H:%M:%S') }}</li>
                 <li>Last scan performed: Not available</li>
             </ul>
         </div>
@@ -35,5 +35,28 @@
             <a href="{{ url_for('main.profile') }}" class="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 text-center">Update Profile</a>
         </div>
     </div>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow-md mb-8">
+    <h2 class="text-2xl font-semibold mb-4">Change Password</h2>
+    <form action="{{ url_for('auth.change_password') }}" method="POST">
+        <div class="mb-4">
+            <label for="current_password" class="block text-gray-700 font-bold mb-2">Current Password</label>
+            <input type="password" id="current_password" name="current_password" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="new_password" class="block text-gray-700 font-bold mb-2">New Password</label>
+            <input type="password" id="new_password" name="new_password" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="confirm_password" class="block text-gray-700 font-bold mb-2">Confirm New Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Change Password</button>
+    </form>
+</div>
+
+<div class="text-center">
+    <a href="{{ url_for('auth.logout') }}" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Logout</a>
 </div>
 {% endblock %}
