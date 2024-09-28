@@ -30,3 +30,40 @@
     </div>
 </section>
 {% endblock %}
+
+{% block footer_content %}
+    <div>
+        <h3 class="text-xl font-semibold mb-4">Solutions</h3>
+        <ul class="space-y-2">
+            <li><a href="{{ url_for('main.solutions') }}#kyc-security" class="hover:text-gray-300">KYC Security</a></li>
+            <li><a href="{{ url_for('main.solutions') }}#media-verification" class="hover:text-gray-300">Media Verification</a></li>
+            <li><a href="{{ url_for('main.solutions') }}#threat-intelligence" class="hover:text-gray-300">Threat Intelligence</a></li>
+        </ul>
+    </div>
+    <div>
+        <h3 class="text-xl font-semibold mb-4">Use Cases</h3>
+        <ul class="space-y-2">
+            <li><a href="{{ url_for('main.use_cases') }}#defence" class="hover:text-gray-300">Defence</a></li>
+            <li><a href="{{ url_for('main.use_cases') }}#law-enforcement" class="hover:text-gray-300">Law Enforcement</a></li>
+            <li><a href="{{ url_for('main.use_cases') }}#kyc" class="hover:text-gray-300">KYC</a></li>
+            <li><a href="{{ url_for('main.use_cases') }}#cybersecurity" class="hover:text-gray-300">Cybersecurity</a></li>
+        </ul>
+    </div>
+    <div>
+        <h3 class="text-xl font-semibold mb-4">Resources</h3>
+        <ul class="space-y-2">
+            <li><a href="{{ url_for('main.resources') }}#blog" class="hover:text-gray-300">Blog</a></li>
+            <li><a href="{{ url_for('main.resources') }}#reports" class="hover:text-gray-300">Reports</a></li>
+            <li><a href="{{ url_for('main.resources') }}#video" class="hover:text-gray-300">Video</a></li>
+            <li><a href="{{ url_for('main.resources') }}#news" class="hover:text-gray-300">News & Press</a></li>
+        </ul>
+    </div>
+    <div>
+        <h3 class="text-xl font-semibold mb-4">Company</h3>
+        <ul class="space-y-2">
+            <li><a href="{{ url_for('main.technology') }}" class="hover:text-gray-300">Technology</a></li>
+            <li><a href="#" class="hover:text-gray-300">Careers</a></li>
+            <li><a href="{{ url_for('main.contact') }}" class="hover:text-gray-300">Contact</a></li>
+        </ul>
+    </div>
+{% endblock %}

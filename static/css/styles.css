@@ -17,3 +17,25 @@
 .btn-primary:hover {
     background-color: #2d3748;
 }
+
+/* Footer styles */
+.footer-content {
+    background-color: #1e1b4b;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-content .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-content .grid {
+        grid-template-columns: 1fr;
+    }
+}

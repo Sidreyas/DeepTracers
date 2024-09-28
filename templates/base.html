@@ -48,6 +48,11 @@
 
     <main class="container mx-auto px-6 py-8">
         {% block content %}{% endblock %}
+        <section class="mt-12 bg-indigo-900 text-white p-8 rounded-lg footer-content">
+            <div class="grid md:grid-cols-4 gap-8">
+                {% block footer_content %}{% endblock %}
+            </div>
+        </section>
     </main>
 
     <footer class="bg-primary text-white mt-12">
