@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100">
-    <header class="bg-dark-green text-white">
+    <header class="bg-primary text-white">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <a href="{{ url_for('main.index') }}" class="text-xl font-bold flex items-center">
@@ -17,65 +17,50 @@
                 </a>
             </div>
             <div class="hidden md:flex space-x-4 items-center">
-                <div class="relative group">
-                    <button class="hover:text-gray-300">How it Works</button>
-                    <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden group-hover:block">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Overview</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Features</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pricing</a>
-                    </div>
-                </div>
-                <div class="relative group">
-                    <button class="hover:text-gray-300">About</button>
-                    <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden group-hover:block">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Our Story</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Team</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Careers</a>
-                    </div>
-                </div>
-                <a href="{{ url_for('main.resources') }}" class="hover:text-gray-300">Press</a>
-                <a href="#" class="bg-light-green text-dark-green font-bold py-2 px-4 rounded-full hover:bg-light-green-600">Donate</a>
+                <a href="{{ url_for('main.solutions') }}" class="hover:text-gray-300">Solutions</a>
+                <a href="{{ url_for('main.use_cases') }}" class="hover:text-gray-300">Use Cases</a>
+                <a href="{{ url_for('main.resources') }}" class="hover:text-gray-300">Resources</a>
+                <a href="{{ url_for('main.technology') }}" class="hover:text-gray-300">Technology</a>
+                <a href="{{ url_for('main.contact') }}" class="hover:text-gray-300">Contact</a>
                 {% if current_user.is_authenticated %}
                     <a href="{{ url_for('main.dashboard') }}" class="hover:text-gray-300">Dashboard</a>
                     <a href="{{ url_for('auth.logout') }}" class="hover:text-gray-300">Logout</a>
                 {% else %}
-                    <a href="{{ url_for('auth.login') }}" class="bg-transparent border border-white text-white font-bold py-2 px-4 rounded-full hover:bg-white hover:text-dark-green">Sign in</a>
-                    <a href="{{ url_for('auth.register') }}" class="bg-white text-dark-green font-bold py-2 px-4 rounded-full hover:bg-gray-200">Join now</a>
+                    <a href="{{ url_for('auth.login') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Sign in</a>
                 {% endif %}
             </div>
             <button id="mobile-menu-toggle" class="md:hidden">
                 <i class="fas fa-bars"></i>
             </button>
         </nav>
-        <div id="mobile-menu" class="md:hidden hidden bg-dark-green">
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">How it Works</a>
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">About</a>
-            <a href="{{ url_for('main.resources') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Press</a>
-            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">Donate</a>
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-800">
+            <a href="{{ url_for('main.solutions') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Solutions</a>
+            <a href="{{ url_for('main.use_cases') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Use Cases</a>
+            <a href="{{ url_for('main.resources') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Resources</a>
+            <a href="{{ url_for('main.technology') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Technology</a>
+            <a href="{{ url_for('main.contact') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Contact</a>
             {% if current_user.is_authenticated %}
                 <a href="{{ url_for('main.dashboard') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Dashboard</a>
                 <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Logout</a>
             {% else %}
                 <a href="{{ url_for('auth.login') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Sign in</a>
-                <a href="{{ url_for('auth.register') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Join now</a>
             {% endif %}
         </div>
     </header>
 
     <main class="container mx-auto px-6 py-8">
         {% block content %}{% endblock %}
+        <section class="mt-12 bg-indigo-900 text-white p-8 rounded-lg footer-content">
+            <div class="container mx-auto">
+                <div class="grid md:grid-cols-4 gap-8 mb-8">
+                    {% block footer_content %}{% endblock %}
+                </div>
+                <div class="border-t border-gray-700 pt-8 text-center">
+                    <p>&copy; 2023 Deep Tracers. All rights reserved.</p>
+                </div>
+            </div>
+        </section>
     </main>
-
-    <footer class="bg-dark-green text-white py-8">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                {% block footer_content %}{% endblock %}
-            </div>
-            <div class="border-t border-gray-700 pt-8 text-center">
-                <p>&copy; 2024 Deep Tracers. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
