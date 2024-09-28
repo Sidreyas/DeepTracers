@@ -10,11 +10,13 @@
 <body class="bg-gray-100">
     <header class="bg-primary text-white">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="{{ url_for('main.index') }}" class="text-xl font-bold flex items-center">
-                <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo" class="h-8 w-8 mr-2">
-                <span class="text-2xl">Deep Tracers</span>
-            </a>
-            <div class="hidden md:flex space-x-4">
+            <div class="flex items-center">
+                <a href="{{ url_for('main.index') }}" class="text-xl font-bold flex items-center">
+                    <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo" class="h-8 w-8 mr-2">
+                    <span class="text-2xl">Deep Tracers</span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-4 items-center">
                 <a href="{{ url_for('main.solutions') }}" class="hover:text-gray-300">Solutions</a>
                 <a href="{{ url_for('main.use_cases') }}" class="hover:text-gray-300">Use Cases</a>
                 <a href="{{ url_for('main.resources') }}" class="hover:text-gray-300">Resources</a>
@@ -24,8 +26,8 @@
                     <a href="{{ url_for('main.dashboard') }}" class="hover:text-gray-300">Dashboard</a>
                     <a href="{{ url_for('auth.logout') }}" class="hover:text-gray-300">Logout</a>
                 {% else %}
-                    <a href="{{ url_for('auth.login') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mr-2">Sign in</a>
-                    <a href="{{ url_for('auth.register') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">Join now</a>
+                    <a href="{{ url_for('auth.login') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Sign in</a>
+                    <a href="{{ url_for('auth.register') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full ml-2">Join now</a>
                 {% endif %}
             </div>
             <button id="mobile-menu-toggle" class="md:hidden">
