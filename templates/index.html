@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}AI Threat Detection - Home{% endblock %}
+
+{% block content %}
+<section class="text-center">
+    <h1 class="text-4xl font-bold mb-4">Next-Gen AI Threat Detection</h1>
+    <p class="text-xl mb-8">Protect your digital assets with cutting-edge AI technology</p>
+    <a href="{{ url_for('main.contact') }}" class="btn-primary px-6 py-3 rounded-lg text-lg">Get Started</a>
+</section>
+
+<section class="mt-16">
+    <h2 class="text-3xl font-semibold mb-6">Our Capabilities</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <i class="fas fa-shield-alt text-4xl text-primary mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">Advanced Threat Detection</h3>
+            <p>Utilize state-of-the-art AI algorithms to identify and mitigate potential threats in real-time.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <i class="fas fa-chart-line text-4xl text-primary mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">Scalable Solutions</h3>
+            <p>Our platform grows with your needs, ensuring protection for businesses of all sizes.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <i class="fas fa-brain text-4xl text-primary mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">Continuous Learning</h3>
+            <p>Our AI models continuously adapt to new threats, providing up-to-date protection.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

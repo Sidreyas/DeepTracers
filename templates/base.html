@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AI Threat Detection{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-primary text-white">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="{{ url_for('main.index') }}" class="text-xl font-bold">
+                <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo" class="h-8 w-8 inline-block mr-2">
+                AI Threat Detection
+            </a>
+            <div class="hidden md:flex space-x-4">
+                <a href="{{ url_for('main.solutions') }}" class="hover:text-gray-300">Solutions</a>
+                <a href="{{ url_for('main.use_cases') }}" class="hover:text-gray-300">Use Cases</a>
+                <a href="{{ url_for('main.resources') }}" class="hover:text-gray-300">Resources</a>
+                <a href="{{ url_for('main.technology') }}" class="hover:text-gray-300">Technology</a>
+                <a href="{{ url_for('main.contact') }}" class="hover:text-gray-300">Contact</a>
+            </div>
+            <button id="mobile-menu-toggle" class="md:hidden">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-800">
+            <a href="{{ url_for('main.solutions') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Solutions</a>
+            <a href="{{ url_for('main.use_cases') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Use Cases</a>
+            <a href="{{ url_for('main.resources') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Resources</a>
+            <a href="{{ url_for('main.technology') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Technology</a>
+            <a href="{{ url_for('main.contact') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-primary text-white mt-12">
+        <div class="container mx-auto px-6 py-4">
+            <p class="text-center">&copy; 2023 AI Threat Detection. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css';
+
+/* Custom styles */
+.bg-primary {
+    background-color: #1a202c;
+}
+
+.text-primary {
+    color: #1a202c;
+}
+
+.btn-primary {
+    background-color: #4a5568;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2d3748;
+}
