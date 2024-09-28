@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "repl-nix-ai-threat-shield"
+name = "deep-tracers-ai-threat-detection"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "Next-Gen AI Threat Detection platform by Deep Tracers"
+authors = ["Deep Tracers Team <info@deeptracers.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
