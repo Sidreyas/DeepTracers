@@ -45,3 +45,18 @@ def contact():
 @login_required
 def dashboard():
     return render_template('dashboard.html', name=current_user.username, now=datetime.now())
+
+@main_bp.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', user=current_user)
+
+@main_bp.route('/update_profile', methods=['POST'])
+@login_required
+def update_profile():
+    if request.method == 'POST':
+        current_user.username = request.form.get('username')
+        current_user.email = request.form.get('email')
+        db.session.commit()
+        flash('Your profile has been updated successfully!', 'success')
+        return redirect(url_for('main.profile'))

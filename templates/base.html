@@ -27,7 +27,6 @@
                     <a href="{{ url_for('auth.logout') }}" class="hover:text-gray-300">Logout</a>
                 {% else %}
                     <a href="{{ url_for('auth.login') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Sign in</a>
-                    <a href="{{ url_for('auth.register') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full ml-2">Join now</a>
                 {% endif %}
             </div>
             <button id="mobile-menu-toggle" class="md:hidden">
@@ -45,7 +44,6 @@
                 <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Logout</a>
             {% else %}
                 <a href="{{ url_for('auth.login') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Sign in</a>
-                <a href="{{ url_for('auth.register') }}" class="block px-4 py-2 text-sm hover:bg-gray-700">Join now</a>
             {% endif %}
         </div>
     </header>
