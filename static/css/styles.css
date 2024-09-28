@@ -45,18 +45,45 @@
     border-radius: 9999px;
 }
 
-.bg-blue-500 {
-    background-color: #3b82f6;
-}
-
-.bg-blue-600 {
-    background-color: #2563eb;
-}
-
 .bg-green-500 {
     background-color: #10b981;
 }
 
 .bg-green-600 {
     background-color: #059669;
+}
+
+.bg-gray-700 {
+    background-color: #374151;
+}
+
+.bg-gray-800 {
+    background-color: #1f2937;
+}
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+    .md\:hidden {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .md\:flex {
+        display: flex;
+    }
+}
+
+/* Mobile menu toggle button */
+#mobile-menu-toggle {
+    cursor: pointer;
+}
+
+/* Mobile menu */
+#mobile-menu {
+    display: none;
+}
+
+#mobile-menu.show {
+    display: block;
 }
