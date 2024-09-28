@@ -35,48 +35,21 @@
     <div class="max-w-3xl mx-auto">
         <h3 class="text-2xl font-semibold mb-4">Try our deepfake detector</h3>
         <div class="flex items-center">
-            <input type="text" placeholder="Add a URL to a social media post..." class="flex-grow p-3 rounded-l-lg border-2 border-r-0 border-gray-300 focus:outline-none focus:border-green-500">
-            <button class="bg-green-500 text-white px-6 py-3 rounded-r-lg hover:bg-green-600 transition duration-300">IS IT REAL?</button>
+            <input type="text" id="deepfake-url" placeholder="Add a URL to a social media post..." class="flex-grow p-3 rounded-l-lg border-2 border-r-0 border-gray-300 focus:outline-none focus:border-green-500">
+            <button id="detect-deepfake" class="bg-green-500 text-white px-6 py-3 rounded-r-lg hover:bg-green-600 transition duration-300">IS IT REAL?</button>
         </div>
+        <div id="result" class="mt-4 text-center font-bold"></div>
         <div class="mt-8">
             <h4 class="text-xl font-semibold mb-4">SUPPORTED SOURCES</h4>
-            <div class="flex space-x-6">
-                <div class="text-center">
+            <div class="flex flex-wrap justify-center space-x-6">
+                {% for platform in supported_platforms %}
+                <div class="text-center mb-4">
                     <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <i class="fab fa-tiktok text-white text-2xl"></i>
+                        <i class="fab fa-{{ platform.lower() }} text-white text-2xl"></i>
                     </div>
-                    <p>TikTok</p>
+                    <p>{{ platform }}</p>
                 </div>
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <i class="fab fa-x-twitter text-white text-2xl"></i>
-                    </div>
-                    <p>X</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <i class="fab fa-facebook-f text-white text-2xl"></i>
-                    </div>
-                    <p>Facebook</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <i class="fab fa-instagram text-white text-2xl"></i>
-                    </div>
-                    <p>Instagram</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <i class="fab fa-reddit-alien text-white text-2xl"></i>
-                    </div>
-                    <p>Reddit</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <i class="fas fa-check text-white text-2xl"></i>
-                    </div>
-                    <p>Truth Social</p>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -156,4 +129,51 @@
             <li><a href="{{ url_for('main.contact') }}" class="hover:text-gray-300">Contact</a></li>
         </ul>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const detectButton = document.getElementById('detect-deepfake');
+    const urlInput = document.getElementById('deepfake-url');
+    const resultDiv = document.getElementById('result');
+
+    detectButton.addEventListener('click', function() {
+        const url = urlInput.value.trim();
+        if (!url) {
+            alert('Please enter a URL');
+            return;
+        }
+
+        resultDiv.textContent = 'Analyzing...';
+        detectButton.disabled = true;
+
+        fetch('/detect_deepfake', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url: url }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.is_deepfake) {
+                resultDiv.textContent = `This content is likely a deepfake (${(data.confidence * 100).toFixed(2)}% confidence)`;
+                resultDiv.className = 'mt-4 text-center font-bold text-red-600';
+            } else {
+                resultDiv.textContent = `This content is likely authentic (${(data.confidence * 100).toFixed(2)}% confidence)`;
+                resultDiv.className = 'mt-4 text-center font-bold text-green-600';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            resultDiv.textContent = 'An error occurred while analyzing the content.';
+            resultDiv.className = 'mt-4 text-center font-bold text-red-600';
+        })
+        .finally(() => {
+            detectButton.disabled = false;
+        });
+    });
+});
+</script>
 {% endblock %}

@@ -1,13 +1,15 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
 from models import db, Contact
 from datetime import datetime
+from ai_api import detect_deepfake, get_supported_platforms
 
 main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def index():
-    return render_template('index.html')
+    supported_platforms = get_supported_platforms()
+    return render_template('index.html', supported_platforms=supported_platforms)
 
 @main_bp.route('/solutions')
 def solutions():
@@ -60,3 +62,12 @@ def update_profile():
         db.session.commit()
         flash('Your profile has been updated successfully!', 'success')
         return redirect(url_for('main.profile'))
+
+@main_bp.route('/detect_deepfake', methods=['POST'])
+def detect_deepfake_route():
+    url = request.json.get('url')
+    if not url:
+        return jsonify({"error": "No URL provided"}), 400
+    
+    result = detect_deepfake(url)
+    return jsonify(result)
