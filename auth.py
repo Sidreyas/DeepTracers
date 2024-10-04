@@ -20,8 +20,8 @@ def login():
 
         login_user(user, remember=remember)
         user.update_last_login()
-        flash('Logged in successfully.', 'success')
-        return redirect(url_for('main.dashboard'))
+        flash('Logged in successfully. Welcome back!', 'success')
+        return redirect(url_for('main.index'))
 
     return render_template('login.html')
 
@@ -44,8 +44,8 @@ def register():
         db.session.commit()
 
         login_user(new_user)
-        flash('Registration successful. Welcome to your dashboard!', 'success')
-        return redirect(url_for('main.dashboard'))
+        flash('Registration successful. Welcome!', 'success')
+        return redirect(url_for('main.index'))
 
     return render_template('register.html')
 
@@ -65,13 +65,13 @@ def change_password():
 
     if not current_user.check_password(current_password):
         flash('Current password is incorrect.', 'error')
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('main.profile'))
 
     if new_password != confirm_password:
         flash('New passwords do not match.', 'error')
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('main.profile'))
 
     current_user.set_password(new_password)
     db.session.commit()
     flash('Password changed successfully.', 'success')
-    return redirect(url_for('main.dashboard'))
+    return redirect(url_for('main.profile'))
